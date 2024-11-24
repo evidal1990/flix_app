@@ -1,30 +1,27 @@
 import streamlit as st
+from genres.page import show_genres
 
 
 def main():
-    st.title("Flix App")
-
     menu_options = st.sidebar.selectbox(
         "Selecione uma opção",
         ["Início", "Gêneros", "Atores/Atrizes", "Filmes", "Avaliações"]
     )
 
-    create_menu_options(menu_options)
+    if menu_options == "Início":
+        st.title("Seja bem-vindo ao Flix App!")
 
+    if menu_options == "Gêneros":
+        show_genres()
 
-def create_menu_options(menu_options):
+    if menu_options == "Atores/Atrizes":
+        st.title("Atores/Atrizes")
 
-    match menu_options:
-        case "Início":
-            st.write("Seja bem-vindo ao Flix App!")
-        case "Gêneros":
-            st.write("Gêneros de filmes")
-        case "Atores/Atrizes":
-            st.write("Atores e atrizes")
-        case "Filmes":
-            st.write("Filmes")
-        case "Avaliações":
-            st.write("Avaliações")
+    if menu_options == "Filmes":
+        st.title("Filmes")
+
+    if menu_options == "Avaliações":
+        st.title("Avaliações")
 
 
 if __name__ == "__main__":
