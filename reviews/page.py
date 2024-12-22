@@ -3,7 +3,7 @@ import pandas as pd
 from st_aggrid import AgGrid
 
 
-genres = [
+reviews = [
     {
         "id": 1,
         "stars": 5
@@ -21,4 +21,4 @@ genres = [
 
 def show_reviews():
     st.title("Lista de avaliações")
-    AgGrid(data=pd.DataFrame(genres), reload_data=True, key="reviews_grid")
+    AgGrid(data=pd.DataFrame(reviews), reload_data=True, key="reviews_grid")
