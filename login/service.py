@@ -10,3 +10,4 @@ def login(username, password):
         st.error(f'Falha ao realizar login: {error}')
     else:
         st.session_state.token = response.get("access")
+        st.rerun()
