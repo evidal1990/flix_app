@@ -7,7 +7,7 @@ from login.service import logout
 
 class GenreRepository:
 
-    def __init_(self):
+    def __init__(self):
         load_dotenv()
         self.__base_url = os.getenv("BASE_URL")
         self.__genres_url = f'{self.__base_url}genres/'
