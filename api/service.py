@@ -1,10 +1,13 @@
 import requests
+import os
+from dotenv import load_dotenv
 
 
 class AuthenticationService:
 
     def __init__(self):
-        self.__base_url = "https://evidal1990.pythonanywhere.com/api/v1/"
+        load_dotenv()
+        self.__base_url = os.getenv("BASE_URL")
         self.__auth_url = f"{self.__base_url}authentication/token/"
 
     def get_token(self, username, password):
