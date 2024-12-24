@@ -19,27 +19,31 @@ def show_actors():
         st.warning("Nenhum(a) ator/atriz encontrado(a)")
 
     st.title("Cadastrar novo ator ou atriz")
-    actor_name = st.text_input("Nome do ator/atriz")
-    actor_birthday = st.date_input(
+    
+    input_name = st.text_input("Nome do ator/atriz")
+    input_birthday = st.date_input(
         label="Data de nascimento",
         value=datetime.today(),
         min_value=datetime(1900, 1, 1).date(),
         max_value=datetime.today(),
         format="DD/MM/YYYY"
     )
+
     nationalities_options = actor_service.get_nationalities()
-    actor_nationality = st.selectbox(
+    selected_nationality_value = st.selectbox(
         label="Nacionalidade",
         options=nationalities_options,
     )
+    selected_nationality_key = actor_service.get_nationality_key(selected_nationality_value)
+
     if st.button("Cadastrar"):
         new_actor = actor_service.create_actor(
-            name=actor_name,
-            birthday=actor_birthday,
-            nationality=actor_nationality,
+            name=input_name,
+            birthday=input_birthday,
+            nationality=selected_nationality_key,
         )
         if new_actor:
-            st.success(f'Ator/Atriz "{actor_name}" cadastrado(a) com sucesso')
+            st.success(f'Ator/Atriz "{input_name}" cadastrado(a) com sucesso')
             st.rerun()
         else:
             st.error("Erro ao cadastrar ator/atriz. Verifique os campos")

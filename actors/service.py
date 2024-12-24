@@ -3,18 +3,24 @@ from actors.repository import ActorRepository
 
 class ActorService:
     def __init__(self):
-        self.__actor_repository = ActorRepository()
+        self.actor_repository = ActorRepository()
 
     def get_actors(self):
-        return self.__actor_repository.get_actors()
+        return self.actor_repository.get_actors()
 
     def create_actor(self, name, birthday, nationality):
         actor = dict(name=name, birthday=birthday, nationality=nationality)
-        return self.__actor_repository.create_actor(actor)
+        return self.actor_repository.create_actor(actor)
 
     def get_nationalities(self):
-        nationalities_dict = self.__actor_repository.get_nationalities()["nationalities"]
-        nationalities = []
-        for nationality in nationalities_dict:
-            nationalities.append(nationality[0])
-        return nationalities
+        nationalities = self.actor_repository.get_nationalities()["nationalities"]
+        if not nationalities:
+            return []
+
+        return sorted([f'{value} ({key})' for key, value in nationalities])
+
+    def get_nationality_key(self, nationality):
+        if not nationality:
+            return None
+
+        return nationality[(nationality.index("(") + 1):nationality.index(")")]
