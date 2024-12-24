@@ -11,6 +11,7 @@ class ActorRepository:
         load_dotenv()
         self.__base_url = os.getenv("BASE_URL")
         self.__genres_url = f'{self.__base_url}actors/'
+        self.__nationalities_url = f'{self.__base_url}actors/nationalities'
         self.__headers = {
             "Authorization": f'Bearer {st.session_state.token}'
         }
@@ -31,4 +32,10 @@ class ActorRepository:
         if response.status_code == 401:
             logout()
             return None
+        raise Exception(f'Erro ao obter dados da API. Status Code {response.status_code}')
+
+    def get_nationalities(self):
+        response = requests.get(self.__nationalities_url, headers=self.__headers)
+        if response.status_code == 200:
+            return response.json()
         raise Exception(f'Erro ao obter dados da API. Status Code {response.status_code}')
