@@ -25,7 +25,7 @@ class MovieRepository:
         raise Exception(f'Erro ao obter dados da API. Status Code {response.status_code}')
 
     def create_movie(self, movie):
-        response = requests.get(self.__movies_url, headers=self.__headers, data=movie)
+        response = requests.post(self.__movies_url, headers=self.__headers, data=movie)
         if response.status_code == 201:
             return response.json()
         if response.status_code == 401:

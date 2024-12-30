@@ -1,29 +1,26 @@
 import streamlit as st
 import pandas as pd
 from st_aggrid import AgGrid
-
-
-movies = [
-    {
-        "id": 1,
-        "name": "Titanic"
-    },
-    {
-        "id": 2,
-        "name": "Creed"
-    },
-    {
-        "id": 3,
-        "name": "O Diabo Veste Prada"
-    }
-]
+from movies.service import MovieService
 
 
 def show_movies():
-    st.title("Lista de filmes")
-    AgGrid(data=pd.DataFrame(movies), reload_data=True, key="movies_grid")
-    st.title("Cadastrar novo filme")
+    movie_service = MovieService()
 
-    movie_name = st.text_input("Nome do filme")
-    if st.button("Cadastrar"):
-        st.success(f'Filme "{movie_name}" cadastrado com sucesso')
+    with st.container():
+        movies = movie_service.get_movies()
+        if movies:
+            st.title("Lista de filmes")
+            AgGrid(
+                data=pd.json_normalize(movies),
+                reload_data=True,
+                key="movies_grid"
+            )
+        else:
+            st.warning("Nenhum filme cadastrado")
+
+    with st.container():
+        st.title("Cadastrar novo filme")
+        movie_name = st.text_input("Nome do filme")
+        if st.button("Cadastrar"):
+            st.success(f'Filme "{movie_name}" cadastrado com sucesso')
