@@ -24,3 +24,9 @@ class ActorService:
             return None
 
         return nationality[(nationality.index("(") + 1):nationality.index(")")]
+
+    def get_actors_name(self):
+        actors = self.get_actors()
+        if not actors:
+            return []
+        return {actor["name"]: actor["id"] for actor in actors}

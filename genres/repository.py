@@ -32,3 +32,12 @@ class GenreRepository:
             logout()
             return None
         raise Exception(f'Erro ao obter dados da API. Status Code {response.status_code}')
+
+    def get_genre_by_id(self, id):
+        response = requests.get(f'{self.__genres_url}/{id}/', headers=self.__headers)
+        if response.status_code == 200:
+            return response.json()
+        if response.status_code == 401:
+            logout()
+            return None
+        raise Exception(f'Erro ao obter dados da API. Status Code {response.status_code}')
