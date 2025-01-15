@@ -11,9 +11,10 @@ def show_home():
 
     print(movie_stats)
 
-    if len(movie_stats["movies_by_genre"]) > 0:
-        with st.container():
-            st.subheader("Filmes por gênero")
+    with st.container():
+        if len(movie_stats["movies_by_genre"]) == 0:
+            st.error("Nenhum gráfico a ser exibido")
+        else:
             fig = px.pie(
                 movie_stats["movies_by_genre"],
                 values="count",
